@@ -11,7 +11,7 @@ html {
 
 body {
   width: 100%;
-  height: 100px;
+  min-height: 100vh;
   padding-top: 100px;
   background-color: #141414;
 }
@@ -153,8 +153,11 @@ h1{
   display: none;
 }
 
-/* .who-we-are {
-  background-color: #324456;
+
+#nosotros {
+  display: flex;
+  flex-direction: column;
+  background-color: #141414;
   color: white;
   padding: 50px 20px;
   text-align: center;
@@ -310,62 +313,30 @@ h1{
   color: black;
 }
 
-.purpose-mision-vision-box p {
-  text-align: justify;
-} */
+.seccion li {
+  color: black;
+    margin-bottom: 8px;
+    line-height: 1.5;
+}
 
-#nosotros {
-  display: flex;
-  flex-direction: column;
-  background-color: #141414;
-  color: white;
-  padding: 50px 20px;
-  text-align: center;
-  height: 700px;
-  align-items: center;
+/* Animaciones */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideIn {
+    from { transform: translateY(-50px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
 }
 /*---------------------------------------------------------------------------*/
-
-#nosotros h2 {
-  font-size: 2.2em;
-  margin-bottom: 110px;
-}
-
-.equipo {
-  margin-top: 50px;
-  display: flex;
-  flex-direction: column;
-  gap: 40px;
-  align-items: center;
-}
-
-.conocenos{
-    margin-top: 30px;
-    margin-bottom: 50px;
-  }
-
-.conoce-btn{
-    color: white;
-    font-weight: bold;
-    margin-top: 50px;
-    cursor: pointer;
-    background-color: black;
-    border: 2px solid #d18b21;
-    padding: 10px 20px;
-    transition: background-color 0.3s ease, color 0.3s ease;
-  }
-  
-  .conoce-btn:hover{
-    background-color: #d18b21;
-    color: black; 
-  }
 
   #funciones{
     text-align: center;
     color: white;
     margin-top: 57em;
     background-color: #131925;
-    height: 40em;
+    height: 45em;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -467,4 +438,172 @@ h1{
     display: block;
     flex: 1;
   }
+}
+
+
+/*Modal boton inicio de sesión*-------------------------/
+
+/* ========= MODAL LOGIN ========= */
+.login-modal {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.6);
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.login-content {
+    background: #fff;
+    padding: 25px 30px;
+    width: 90%;
+    max-width: 420px;
+    border-radius: 12px;
+    position: relative;
+    animation: fadeInLogin 0.3s ease;
+}
+
+.close-login {
+    position: absolute;
+    right: 15px;
+    top: 10px;
+    font-size: 28px;
+    cursor: pointer;
+    color: #666;
+    font-weight: bold;
+}
+
+.close-login:hover {
+    color: #000;
+}
+
+.login-content h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #222;
+}
+
+.login-form label {
+    font-weight: bold;
+    color: #333;
+}
+
+.login-form input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    border: 1px solid #bbb;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+.btn-login {
+    width: 100%;
+    padding: 10px;
+    background: black;
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background 0.3s ease;
+}
+
+.btn-login:hover {
+    background: #333;
+}
+
+/* Mensajes de error */
+.error-msg {
+    color: red;
+    font-size: 0.85em;
+    margin-top: -10px;
+    margin-bottom: 10px;
+    display: none;
+}
+
+/* enlaces inferiores */
+.extra-links {
+    text-align: center;
+    margin-top: 15px;
+}
+
+.extra-links a {
+    color: #0077ff;
+    text-decoration: none;
+}
+
+.extra-links a:hover {
+    text-decoration: underline;
+}
+
+/* Mostrar/Ocultar contraseña */
+.password-container {
+    position: relative;
+}
+
+.toggle-pass {
+    position: absolute;
+    right: 10px;
+    top: 12px;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+/* Animación */
+@keyframes fadeInLogin {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* RESPONSIVE */
+@media (max-width: 450px) {
+    .login-content {
+        padding: 20px;
+    }
+    .toggle-pass {
+        top: 10px;
+    }
+}
+
+
+/*----------------------------------------------*/
+
+/* Menú desplegable del usuario */
+.user-menu {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.user-dropdown {
+    position: absolute;
+    top: 28px;
+    right: 0;
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 8px 12px;
+    display: none;
+    width: 140px;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+}
+
+.user-dropdown a {
+    display: block;
+    text-decoration: none;
+    color: #333;
+    padding: 6px 0;
+}
+
+.user-dropdown a:hover {
+    color: #1a73e8;
 }
