@@ -1,23 +1,21 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Obtener elementos
+
     const modal = document.getElementById('modalEmpresa');
     const btn = document.getElementById('conoceMasbtn');
     const span = document.getElementsByClassName('close')[0];
 
     console.log('Elementos cargados:', { modal, btn, span });
 
-    // Abrir modal
     if (btn) {
         btn.addEventListener('click', function() {
             console.log('Botón clickeado');
             if (modal) {
                 modal.style.display = 'block';
-                document.body.style.overflow = 'hidden'; // Evitar scroll
+                document.body.style.overflow = 'hidden';
             }
         });
     }
 
-    // Cerrar modal con la X
     if (span) {
         span.addEventListener('click', function() {
             if (modal) {
@@ -27,7 +25,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Cerrar modal haciendo clic fuera
     window.addEventListener('click', function(event) {
         if (event.target === modal) {
             modal.style.display = 'none';
@@ -35,7 +32,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Cerrar con ESC
     document.addEventListener('keydown', function(event) {
         if (event.key === 'Escape' && modal.style.display === 'block') {
             modal.style.display = 'none';
@@ -45,12 +41,9 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
-//modal de boton inicio de sesion-------------------------------------------
-
 
 document.addEventListener("DOMContentLoaded", () => {
 
-    // ====== ELEMENTOS ======
     const loginBtn = document.getElementById("iniciarSesionbtn");
     const registerBtn = document.querySelector(".Registrarse");
 
@@ -69,22 +62,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const navContainer = document.querySelector(".register-btn");
 
-    // ====== ABRIR MODALES ======
-    loginBtn.addEventListener("click", () => loginModal.style.display = "block");
-    registerBtn.addEventListener("click", () => registerModal.style.display = "block");
 
-    // ====== CERRAR MODALES ======
-    closeLogin.addEventListener("click", () => loginModal.style.display = "none");
-    closeRegister.addEventListener("click", () => registerModal.style.display = "none");
+    loginBtn.addEventListener("click", () => loginModal.classList.add("active"));
+
+    registerBtn.addEventListener("click", () => registerModal.classList.add("active"));
+
+
+    closeLogin.addEventListener("click", () => loginModal.classList.remove("active"));
+
+    closeRegister.addEventListener("click", () => registerModal.classList.remove("active"));
+
 
     window.addEventListener("click", (e) => {
-        if (e.target === loginModal) loginModal.style.display = "none";
+        if (e.target === loginModal) loginModal.classList.remove("active");
+
         if (e.target === registerModal) registerModal.style.display = "none";
     });
 
-    // ============================================================
-    //  REGISTRAR USUARIO
-    // ============================================================
     registerForm.addEventListener("submit", (e) => {
         e.preventDefault();
 
@@ -92,7 +86,6 @@ document.addEventListener("DOMContentLoaded", () => {
         let user = document.getElementById("regUser").value.trim();
         let pass = document.getElementById("regPass").value.trim();
 
-        // Validaciones
         if (!email.includes("@") || user.length < 3 || pass.length < 8) {
             regError.style.display = "block";
             return;
@@ -100,7 +93,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
         regError.style.display = "none";
 
-        // Guardar datos en localStorage
         let userData = { email, user, pass };
         localStorage.setItem("flowixUser", JSON.stringify(userData));
 
@@ -109,9 +101,6 @@ document.addEventListener("DOMContentLoaded", () => {
         registerModal.style.display = "none";
     });
 
-    // ============================================================
-    //  INICIAR SESIÓN
-    // ============================================================
     loginForm.addEventListener("submit", (e) => {
         e.preventDefault();
 
@@ -130,20 +119,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
         alert("Inicio de sesión exitoso ✔");
 
-        loginModal.style.display = "none";
+        loginModal.classList.remove("active");
 
-        // Cambiar header por el nombre del usuario
+
         navContainer.innerHTML = `
             <span class="user-name">👤 ${savedUser.user}</span>
         `;
 
-        // Recargar la página
         location.reload();
     });
 
-    // ============================================================
-    //  MANTENER SESIÓN INICIADA
-    // ============================================================
     const savedUser = JSON.parse(localStorage.getItem("flowixUser"));
     if (savedUser) {
        navContainer.innerHTML = `
@@ -157,23 +142,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
     }
 
-    // ============================================================
-//  MANEJO DEL MENÚ DE USUARIO Y CERRAR SESIÓN
-// ============================================================
-
-// Función para activar menú si hay usuario guardado
 function activateUserMenu() {
     const userMenu = document.querySelector(".user-menu");
     if (!userMenu) return;
 
     const dropdown = userMenu.querySelector(".user-dropdown");
 
-    // Mostrar/ocultar menu al hacer clic
     userMenu.addEventListener("click", () => {
         dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
     });
 
-    // Botón cerrar sesión
     const logout = document.getElementById("logoutBtn");
     logout.addEventListener("click", () => {
         localStorage.removeItem("flowixUser");
@@ -182,27 +160,19 @@ function activateUserMenu() {
     });
 }
 
-// Ejecutar si ya está logueado
 activateUserMenu();
 });
 
-
-//  MANEJO DEL MENÚ DE USUARIO Y CERRAR SESIÓN
-
-
-// Función para activar menú si hay usuario guardado
 function activateUserMenu() {
     const userMenu = document.querySelector(".user-menu");
     if (!userMenu) return;
 
     const dropdown = userMenu.querySelector(".user-dropdown");
 
-    // Mostrar/ocultar menu al hacer clic
     userMenu.addEventListener("click", () => {
         dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
     });
 
-    // Botón cerrar sesión
     const logout = document.getElementById("logoutBtn");
     logout.addEventListener("click", () => {
         localStorage.removeItem("flowixUser");
@@ -210,8 +180,156 @@ function activateUserMenu() {
         location.reload();
     });
 }
-
-// Ejecutar si ya está logueado
 activateUserMenu();
 
 
+const menuBtn = document.querySelector('.menu-hamburguesa');
+const navLinks = document.getElementById('navLinksMobile');
+
+if (menuBtn && navLinks) {
+    menuBtn.addEventListener('click', function() {
+        navLinks.classList.toggle('active');
+    });
+    
+    const links = navLinks.querySelectorAll('a');
+    links.forEach(link => {
+        link.addEventListener('click', function() {
+            navLinks.classList.remove('active');
+        });
+    });
+}
+
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    const btnGratis = document.querySelector('.btn-gratis');
+    const btnPremium = document.querySelector('.btn-premium');
+    
+    if (btnGratis) {
+        btnGratis.addEventListener('click', function() {
+            alert('¡Excelente! Redirigiendo al registro gratuito...');
+        });
+    }
+    
+    if (btnPremium) {
+        btnPremium.addEventListener('click', function() {
+            alert('¡Genial! Comenzando tu prueba gratuita de 14 días...');
+        });
+    }
+});
+
+
+const descargarPdfBtn = document.getElementById('descargarPdf');
+
+if (descargarPdfBtn) {
+    descargarPdfBtn.addEventListener('click', function() {
+        const nombreArchivo = 'informe.pdf';
+        
+        const rutaPdf = 'assets/docs/' + nombreArchivo;
+        
+        const link = document.createElement('a');
+        link.href = rutaPdf;
+        link.download = nombreArchivo;
+        
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    });
+}
+
+const botonDescargar = document.querySelector('.Descargar');
+const modal = document.getElementById('simpleModal');
+const cerrarBtn = document.getElementById('cerrarModal');
+
+if (botonDescargar) {
+    botonDescargar.addEventListener('click', function() {
+        modal.style.display = 'block';
+    });
+    
+    cerrarBtn.addEventListener('click', function() {
+        modal.style.display = 'none';
+    });
+    
+    modal.addEventListener('click', function(e) {
+        if (e.target === modal) {
+            modal.style.display = 'none';
+        }
+    });
+}
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    const formSoporte = document.getElementById('formSoporte');
+    
+    if (formSoporte) {
+        formSoporte.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const nombre = document.getElementById('nombre').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const tipoProblema = document.getElementById('tipoProblema').value;
+            const descripcion = document.getElementById('descripcion').value.trim();
+            
+            if (!nombre || !email || !tipoProblema || !descripcion) {
+                alert('Por favor completa todos los campos obligatorios.');
+                return;
+            }
+            
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                alert('Por favor ingresa un correo electrónico válido.');
+                return;
+            }
+            
+            const boton = this.querySelector('.btn-enviar');
+            const textoOriginal = boton.textContent;
+            
+            boton.textContent = 'Enviando...';
+            boton.disabled = true;
+            
+            setTimeout(() => {
+                alert(`✅ Gracias ${nombre}. Hemos recibido tu solicitud de soporte.\n\nTe responderemos a ${email} en menos de 24 horas.`);
+                
+                formSoporte.reset();
+                boton.textContent = textoOriginal;
+                boton.disabled = false;
+            }, 1500);
+        });
+    }
+});
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    const backToTopBtn = document.getElementById('backToTop');
+    
+    if (!backToTopBtn) return;
+    
+    window.addEventListener('scroll', function() {
+        const scrollPosition = window.scrollY || document.documentElement.scrollTop;
+        
+        const pageHeight = document.documentElement.scrollHeight - window.innerHeight;
+
+        if (scrollPosition > pageHeight * 0.75) {
+            backToTopBtn.classList.add('show');
+        } else {
+            backToTopBtn.classList.remove('show');
+        }
+    });
+    
+    backToTopBtn.addEventListener('click', function() {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+        
+        backToTopBtn.classList.remove('show');
+    });
+    
+    window.addEventListener('scroll', function() {
+        const scrollPosition = window.scrollY || document.documentElement.scrollTop;
+        
+        if (scrollPosition === 0) {
+            backToTopBtn.classList.remove('show');
+        }
+    });
+});
